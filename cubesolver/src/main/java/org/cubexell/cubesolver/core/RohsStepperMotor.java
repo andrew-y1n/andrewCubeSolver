@@ -1,6 +1,6 @@
 package org.cubexell.cubesolver.core;
 
-import  ncom.pi4j.Pi4J;
+import com.pi4j.Pi4J;
 import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalOutput;
 import java.util.concurrent.locks.LockSupport;
