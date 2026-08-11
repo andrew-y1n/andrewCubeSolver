@@ -1,6 +1,6 @@
 package org.cubexell.cubesolver.core;
 
-import com.pi4j.Pi4J;
+import  ncom.pi4j.Pi4J;
 import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalOutput;
 import java.util.concurrent.locks.LockSupport;
@@ -22,6 +22,7 @@ public class RohsStepperMotor implements Motor{
                     {0,0,1,1},
                     {0,0,0,1}
             };
+    private boolean True;
 
     public RohsStepperMotor(int in1, int in2, int in3, int in4){
 
@@ -35,12 +36,33 @@ public class RohsStepperMotor implements Motor{
 
     int motorStepCounter = 0;
     public void doTurn(double stepsToTurn, boolean direction) throws InterruptedException {
-        for (){//TODO for all steps to turn
+        for (int i = 0; i < stepsToTurn; i++){//TODO for all steps to turn
             //TODO for all pins, set the corresponding "in" to high(if 1) or low(if 0) based on the step in the step sequence
+            if(stepSequence[motorStepCounter][0] == 1){
+                in1.high();
+            }else{
+                in1.low();
+            }
+            if(stepSequence[motorStepCounter][1] == 1){
+                in2.high();
+            }else{
+                in2.low();
+            }
+            if(stepSequence[motorStepCounter][2] == 1){
+                in3.high();
+            }else{
+                in3.low();
+            }
+            if(stepSequence[motorStepCounter][3] == 1){
+                in4.high();
+            }else{
+                in4.low();
+            }
+
             if (direction){
-                motorStepCounter;//TODO go to the previous step
+                motorStepCounter = (motorStepCounter - 1+stepSequence.length)%stepSequence.length;//TODO go to the previous step
             } else{
-                motorStepCounter;//TODO go to next step in the sequence
+                motorStepCounter = (motorStepCounter + 1)%stepSequence.length;//TODO go to next step in the sequence
             }
             LockSupport.parkNanos(1000000);//wait 1 millisecond
 
@@ -50,8 +72,8 @@ public class RohsStepperMotor implements Motor{
 
     public void turn(double numRotations){
         boolean direction = false;
-        if (){//TODO if numRotations is negative
-            direction;//TODO set direction to true
+        if (numRotations<0){//TODO if numRotations is negative
+            direction = true;//TODO set direction to true
             numRotations = numRotations*-1;//make it positive now that we have adjusted direction.
         }
         try {

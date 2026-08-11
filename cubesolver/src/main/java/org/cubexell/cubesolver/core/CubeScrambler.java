@@ -2,6 +2,7 @@ package org.cubexell.cubesolver.core;
 
 import static org.cubexell.cubesolver.core.CubeConstants.POSSIBLE_MOVES;
 
+
 public class CubeScrambler {
 	private Robot robot;
 	public CubeScrambler() {
@@ -13,12 +14,12 @@ public class CubeScrambler {
 
 	protected String randomScrambleMove() {
 		//TODO declare an int called randomIndex and assign to it a random value between 0 and 17
-		int randomIndex = ;//TODO assign a random value between 0 and 17 using Math.random(), and casting to int with (int)
+		int randomIndex = (int) (Math.random()*18);//TODO assign a random value between 0 and 17 using Math.random(), and casting to int with (int)
 		return POSSIBLE_MOVES[randomIndex];
 	}
 
 	protected char getFace(String move) {
-		//TODO return as a char which face is turned for a given move, i.e. return the first character of the String move
+		return move.charAt(0);//TODO return as a char which face is turned for a given move, i.e. return the first character of the String move
 	}
 
 	public String[] getScramble(int numMoves) {
